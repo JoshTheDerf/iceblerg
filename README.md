@@ -17,7 +17,7 @@ Documentation Completion Status:
  * Wiki      - 0%
  * Code      - 2%
 
-###Contents:
+### Contents:
 > * [Getting Started](#getting-started)
 > * [Features](#features)
 > * [Output Format](#output-format)
@@ -56,7 +56,7 @@ myBlerg.buildModel(function(model) {
     // blog data to other services.
 });
   ```
-4. Create two directorys, `posts` and `templates`. These are the default directories from which iceblerg generates the blog.
+4. Create two directories, `posts` and `templates`. These are the default directories from which iceblerg generates the blog.
 5. Create a new file (henceforth known as `hello-world.md`) in the posts directory and paste this into it. (See [Post Format](#post-format) for an explanation of the file)
 
   ```markdown
