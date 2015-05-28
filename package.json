@@ -1,0 +1,36 @@
+{
+  "name": "iceblerg",
+  "version": "1.0.0",
+  "description": "A no-frills static blog generator with an emphasis on easy integration.",
+  "main": "iceblerg.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tribex/iceblerg.git"
+  },
+  "keywords": [
+    "blog",
+    "blogging",
+    "static",
+    "site",
+    "generator",
+    "jade",
+    "markdown"
+  ],
+  "author": "Joshua Bemenderfer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tribex/iceblerg/issues"
+  },
+  "homepage": "https://github.com/Tribex/iceblerg#readme",
+  "dependencies": {
+    "extend": "^2.0.1",
+    "front-matter": "^1.0.0",
+    "fs-extra": "^0.18.4",
+    "jade": "^1.10.0",
+    "marked": "^0.3.3",
+    "moment": "^2.10.3",
+    "node-dir": "^0.1.8"
+  }
+}
