@@ -34,7 +34,7 @@ Documentation Completion Status:
 ### <a name="getting-started"></a> Getting Started with iceblerg
 This guide assumes you already have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed, and have at a basic knowledge of their usage.
 
-1. If you haven't already, create a folder in which to store your blog.
+1. If you haven't already, create a directory in which to store your blog.
 2. Open a terminal in that directory and install iceblerg using `npm install iceblerg`
 3. Create your build file (henceforth known as `build.js`.) It will run iceblerg and generate your blog. Paste this into it.
 
@@ -56,7 +56,7 @@ myBlerg.buildModel(function(model) {
     // blog data to other services.
 });
   ```
-4. Create two folders, `posts` and `templates`. These are the default directories from which iceblerg generates the blog.
+4. Create two directorys, `posts` and `templates`. These are the default directories from which iceblerg generates the blog.
 5. Create a new file (henceforth known as `hello-world.md`) in the posts directory and paste this into it. (See [Post Format](#post-format) for an explanation of the file)
 
   ```markdown
@@ -76,7 +76,7 @@ Well, what do you know, this appears to be a **Blog Post!**
 Ooh, I can use *Markdown* in it!
 
   ```
-6. Download the [example templates](https://github.com/Tribex/iceblerg-examples/tree/master/example-templates) from the [example repository](https://github.com/Tribex/iceblerg-examples) and paste them into the directory folder so that the final structure is like so:
+6. Download the [example templates](https://github.com/Tribex/iceblerg-examples/tree/master/example-templates) from the [example repository](https://github.com/Tribex/iceblerg-examples) and paste them into the templates directory so that the final structure is like so:
 
   ```markdown
 My Blog/
@@ -205,10 +205,10 @@ Custom variables may be added as well and used in templates.
 | render             | Function [[Custom Render Function](https://github.com/Tribex/iceblerg-examples/tree/master/examples/custom-template-language)]  | The function which converts a template and the model data into a page. Can easily be changed.
 
 ### <a name="documentation"></a> Documentation
-[Builder (Main Module) Docs](https://github.com/Tribex/iceblerg/wiki/Builder-Docs)
-[Model Utility Functions](https://github.com/Tribex/iceblerg/wiki/Model-Utility-Functions)
-[Model Format](https://github.com/Tribex/iceblerg/wiki/Model-Format)
-[Template Docs](https://github.com/Tribex/iceblerg/wiki/Template-Docs)
+* [Builder (Main Module) Docs](https://github.com/Tribex/iceblerg/wiki/Builder-Docs)
+* [Model Utility Functions](https://github.com/Tribex/iceblerg/wiki/Model-Utility-Functions)
+* [Model Format](https://github.com/Tribex/iceblerg/wiki/Model-Format)
+* [Template Docs](https://github.com/Tribex/iceblerg/wiki/Template-Docs)
 
 ### <a name="examples"></a> Examples
 Examples can be found in the [examples repository](https://github.com/Tribex/iceblerg-examples).
