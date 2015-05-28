@@ -38,9 +38,23 @@ var defaultOptions = {
     'template-extension': '.jade',
     'preview-length': 70,
     'preview-separator': '==[END PREVIEW]==',
+    /** Render function used for every file. Override this in the options to
+     * implement your own template engines and markup renderers.
+     * @param {string} templatePath - The full path to the template used.
+     * @param {string} data - An object containing the iceblerg model as well as page-specific data.
+     * @param {string} type - The page type, eg. postPage, tagPage, authorPage, overviewPage.
+     * @returns {string} - The generated HTML string.
+     */
     'render': function(templatePath, data, type) {
-        data.iceblerg.contentRenderer = require('marked');
-        return require('jade').renderFile(templatePath, data);
+        try {
+            // iceblerg.contentRenderer is used to render the body of a post to HTML
+            data.iceblerg.contentRenderer = require('marked');
+            
+            // Render the template with Jade using the data supplied.
+            return require('jade').renderFile(templatePath, data);
+        } catch (e) {
+            return e.message;
+        }
     }
 };
 
@@ -155,11 +169,5 @@ var iceblerg = function(userOptions) {
         );
     };
 };
-
-var blerg = new iceblerg();
-
-blerg.buildModel(function(model) {
-    blerg.generate(model);
-});
 
 module.exports = iceblerg;

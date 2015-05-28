@@ -10,12 +10,20 @@ iceblerg can easily be used in conjunction with a general build framework such a
 Please note that iceblerg is intended only for static sites. It does not and will not ever (well, maybe) have server components or features which require a running web server.
 If you need something similar which does boast such capabilities, I encourage you to check out [Poet](https://jsantell.github.io/poet/).
 
+**Note:** This project is new and unstable. Much of the documentation has yet to be written.
+Documentation Completion Status:
+ * README.md - 90%
+ * [Examples](https://github.com/Tribex/iceblerg-examples)  - 30%
+ * Wiki      - 0%
+ * Code      - 2%
+
 ###Contents:
 > * [Getting Started](#getting-started)
 > * [Features](#features)
+> * [Output Format](#output-format)
 > * [Post Format](#post-format)
 > * [Options](#options)
-> * [API Docs](#documentation)
+> * [Documentation](#documentation)
 > * [Examples](#examples)
 > * [TODO](#todo)
 > * [F.A.Q.](#faq)
@@ -23,9 +31,69 @@ If you need something similar which does boast such capabilities, I encourage yo
 > * [Sites Using Iceblerg](#sites)
 > * [License](#license)
 
-### <a name="getting-started"></a> Getting Started
+### <a name="getting-started"></a> Getting Started with iceblerg
 This guide assumes you already have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed, and have at a basic knowledge of their usage.
 
+1. If you haven't already, create a folder in which to store your blog.
+2. Open a terminal in that directory and install iceblerg using `npm install iceblerg`
+3. Create your build file (henceforth known as `build.js`.) It will run iceblerg and generate your blog. Paste this into it.
+
+  ```javascript
+// Pull in iceblerg. (Having previously installed it with 'npm install iceblerg')
+var iceblerg = require('iceblerg');
+
+// Create a new instance of iceblerg. This allows you to have multiple blogs in
+// the same site or project.
+var myBlerg = new iceblerg();
+
+// Build the blog model. This pulls in all the post data and builds all the
+// interconnection trees.
+myBlerg.buildModel(function(model) {
+    // Generate the blog using the model built.
+    myBlerg.generate(model);
+
+    // You can also do other things with the model like rendering custom pages or passing
+    // blog data to other services.
+});
+  ```
+4. Create two folders, `posts` and `templates`. These are the default directories from which iceblerg generates the blog.
+5. Create a new file (henceforth known as `hello-world.md`) in the posts directory and paste this into it. (See [Post Format](#post-format) for an explanation of the file)
+
+  ```markdown
+---
+title: Hello World!
+author: YOUR_NAME
+date: 2015-7-28
+tags:
+    - Hello World
+    - Tutorial
+---
+## Hello World!
+***
+==[END PREVIEW]==
+
+Well, what do you know, this appears to be a **Blog Post!**
+Ooh, I can use *Markdown* in it!
+
+  ```
+6. Download the [example templates](https://github.com/Tribex/iceblerg-examples/tree/master/example-templates) from the [example repository](https://github.com/Tribex/iceblerg-examples) and paste them into the directory folder so that the final structure is like so:
+
+  ```markdown
+My Blog/
+    | build.js
+    | posts/
+        | hello-world.md
+    | templates/
+        | post.jade
+        | tag.jade
+        | author.jade
+        | overview.jade
+  ```
+Take a closer look at those templates to see how to build your own. It's really not that hard. If you'd like to use a different template language, such as lo-dash, follow the [custom template langauge guide](https://github.com/Tribex/iceblerg-examples/tree/master/examples/custom-template-language).
+7. Head back to the terminal and run `node build.js`. Your freshly-generated site should now be sitting in a new directory called `out`. Open `out/main/overview.html`
+in a web browser to take a look!
+
+See? That wasn't so bad was it? All the files for this guide can be found [here](https://github.com/Tribex/iceblerg-examples/tree/master/examples/getting-started) in the [example repository](https://github.com/Tribex/iceblerg-examples). Now go and make your super-awesome blerg.
 
 ### <a name="features"></a> Features
  * File-based posts written in Markdown (default, switchable) and metadata specified with YAML.
@@ -36,6 +104,25 @@ This guide assumes you already have [Node.js](https://nodejs.org/) and [npm](htt
  * Plenty of helper functions and methods.
  * Included Moment.js
  * < 500 LOC (currently)
+
+### <a name="output-format"></a> Output Format
+The generated site (for the post below) should look something like this:
+```
+out/
+  | main/                             - Contains special pages which do not fit into a category.
+    | overview.html                     - The blog overview. Lists all posts, tags, and authors.
+  | posts/                            - Contains the generated html pages for each post.
+    | A Lesson in Generic Articles.html - The generated html for the article shown below.
+  | tags/                             - Contains pages which list all articles the named tag.
+    | Tutorials.html                    - Lists all posts with the Tutorials tag.
+    | General.html                      - Lists all posts with the General tag.
+  | authors/                          - Contains pages which list all posts with the named author.
+    | John Doe.html                     - Lists all posts by John Doe.
+  
+```
+All posts are listed newest-to-oldest unless otherwise specified.
+
+For more information on the templates used, see the [template documentation](https://github.com/Tribex/iceblerg/wiki/Template-Docs)
 
 ### <a name="post-format"></a> Post Format
 The beginning of the file should start with these YAML variables, surrounded by three dashes. (`---`) Additional optional variables may be found below.
@@ -115,16 +202,21 @@ Custom variables may be added as well and used in templates.
 | template-extension | String [".jade"]                   | Templates with this extension in the templates directory will be used.
 | preview-length     | Integer [70]                       | The default length for post previews. Only used if the post does not have the properties `preview`, `preview-length`, and does not contain an `==[END PREVIEW]==` tag.
 | preview-separator  | String ["==[END PREVIEW]=="]       | The string which separates the preview from the rest of the post body.
-| render             | Function [Custom Render Function TODO: Link.]  | The function which converts a template and the model data into a page. Can easily be changed.
+| render             | Function [[Custom Render Function](https://github.com/Tribex/iceblerg-examples/tree/master/examples/custom-template-language)]  | The function which converts a template and the model data into a page. Can easily be changed.
 
 ### <a name="documentation"></a> Documentation
-See the Wiki
+[Builder (Main Module) Docs](https://github.com/Tribex/iceblerg/wiki/Builder-Docs)
+[Model Utility Functions](https://github.com/Tribex/iceblerg/wiki/Model-Utility-Functions)
+[Model Format](https://github.com/Tribex/iceblerg/wiki/Model-Format)
+[Template Docs](https://github.com/Tribex/iceblerg/wiki/Template-Docs)
 
 ### <a name="examples"></a> Examples
-TODO: Fill in
+Examples can be found in the [examples repository](https://github.com/Tribex/iceblerg-examples).
 
 ### <a name="todo"></a> TODO
- * Fill in examples.
+ * Fill in wiki docs and finish writing examples.
+ * Add proper error handling. At the moment it is almost non-existant.
+ * Add support for pagnation in templates which list posts. Haven't decided how.
  * Add support for post-specific templates.
  * Add support for configurable individual template paths.
  * Add support for configurable individual output paths.
@@ -136,7 +228,7 @@ TODO: Fill in
 ### <a name="faq"></a> F.A.Q.
 Q: **How do I change the template language?**
 
-A: *See the documentation on adding a custom renderer* TODO: Link.
+A: *See the documentation on adding a [custom template language](https://github.com/Tribex/iceblerg-examples/tree/master/examples/custom-template-language)*
 
 ---
 Q: **Can I run this on an express/connect/apache/nginx/etc. server?**
